@@ -28,3 +28,4 @@ npm start
 
 Frontend will connect to backend automatically.
 Frontend will run on port 3000 or 3001
+http://localhost:3000/login
