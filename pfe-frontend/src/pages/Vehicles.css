@@ -1,0 +1,308 @@
+/* CONTENT */
+.content {
+  flex: 1;
+  padding: 25px;
+  background: transparent !important;
+  overflow-y: auto;
+  min-height: 100vh;
+}
+
+/* CONTENT HEADER */
+.content-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.content-header h2 {
+  font-size: 24px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+}
+
+/* CARD STYLE */
+.card {
+  background: rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  border-radius: 10px;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,215,0,0.2);
+}
+
+/* TABLE WRAPPER */
+.table-wrapper {
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  overflow: hidden;
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,215,0,0.2);
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.data-table thead tr {
+  background-color: rgba(0, 100, 0, 0.7);
+  border-bottom: 2px solid #FFD700;
+}
+
+.data-table th {
+  padding: 13px 16px;
+  text-align: left;
+  color: #FFD700;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.data-table tbody tr {
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  transition: background-color 0.15s;
+}
+
+.data-table tbody tr:hover {
+  background-color: rgba(255,255,255,0.1);
+}
+
+.data-table td {
+  padding: 13px 16px;
+  color: white;
+  font-size: 14px;
+}
+
+/* FILTERS */
+.filters {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  background: rgba(0,0,0,0.3);
+  padding: 12px 15px;
+  border-radius: 8px;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255,215,0,0.15);
+}
+
+.filter-btn {
+  padding: 6px 16px;
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 13px;
+  background-color: transparent;
+  color: white;
+  transition: all 0.2s;
+}
+
+.filter-btn:hover {
+  border-color: #FFD700;
+  color: #FFD700;
+}
+
+.filter-btn.active-filter {
+  background-color: #FFD700;
+  color: #006400;
+  border-color: #FFD700;
+  font-weight: bold;
+}
+
+.search-input {
+  padding: 7px 15px;
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 20px;
+  font-size: 13px;
+  color: white;
+  background-color: rgba(255,255,255,0.1);
+  width: 220px;
+  margin-left: auto;
+  outline: none;
+}
+
+.search-input::placeholder { color: rgba(255,255,255,0.5); }
+.search-input:focus { border-color: #FFD700; }
+
+/* MODAL */
+.modal-overlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(3px);
+}
+
+.modal {
+  background: rgba(0, 30, 0, 0.95);
+  padding: 30px;
+  border-radius: 12px;
+  width: 550px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+  border: 1px solid rgba(255,215,0,0.3);
+}
+
+.modal h3 {
+  color: #FFD700;
+  margin-bottom: 5px;
+  font-size: 18px;
+}
+
+.modal-subtitle {
+  color: rgba(255,255,255,0.6);
+  font-size: 13px;
+  margin-bottom: 20px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba(255,215,0,0.3);
+}
+
+/* FORM */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.form-grid div {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.form-grid label {
+  font-size: 11px;
+  font-weight: 600;
+  color: #FFD700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.form-grid input,
+.form-grid select {
+  padding: 10px 12px;
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 6px;
+  font-size: 14px;
+  color: white;
+  background-color: rgba(255,255,255,0.1);
+  transition: border-color 0.2s;
+  outline: none;
+}
+
+.form-grid input:focus,
+.form-grid select:focus {
+  border-color: #FFD700;
+}
+
+.form-grid input::placeholder { color: rgba(255,255,255,0.4); }
+
+.form-grid select option {
+  background-color: #1a2e1a;
+  color: white;
+}
+
+.form-buttons {
+  grid-column: span 2;
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  padding-top: 15px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.btn-save {
+  flex: 1;
+  padding: 11px;
+  background-color: #006400;
+  color: white;
+  border: 1px solid #FFD700;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  transition: background-color 0.2s;
+}
+
+.btn-save:hover { background-color: #004d00; }
+
+.btn-cancel {
+  flex: 1;
+  padding: 11px;
+  background-color: transparent;
+  color: #dc3545;
+  border: 1px solid #dc3545;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+/* BADGES */
+.badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: bold;
+  display: inline-block;
+}
+
+.badge-ACTIVE { background-color: #d4edda; color: #155724; }
+.badge-INACTIVE { background-color: #e2e3e5; color: #383d41; }
+.badge-IN_MISSION { background-color: #cce5ff; color: #004085; }
+.badge-IN_REVISION { background-color: #fff3cd; color: #856404; }
+.badge-BREAKDOWN { background-color: #f8d7da; color: #721c24; }
+.badge-REFORMED { background-color: #e2e3e5; color: #383d41; }
+.badge-PLANNED { background-color: #fff3cd; color: #856404; }
+.badge-IN_PROGRESS { background-color: #cce5ff; color: #004085; }
+.badge-COMPLETED { background-color: #d4edda; color: #155724; }
+.badge-CANCELLED { background-color: #f8d7da; color: #721c24; }
+.badge-SHORT { background-color: #e8d5f5; color: #6f42c1; }
+.badge-LONG { background-color: #ffd9c0; color: #c0390b; }
+
+/* ACTION BUTTONS */
+.btn-edit {
+  padding: 5px 12px;
+  background-color: #ffc107;
+  color: #333;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  margin-right: 5px;
+}
+
+.btn-delete {
+  padding: 5px 12px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+/* ADD BUTTON */
+.btn-add {
+  padding: 10px 22px;
+  background-color: #006400;
+  color: white;
+  border: 1px solid #FFD700;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: background-color 0.2s;
+}
+
+.btn-add:hover { background-color: #004d00; }
