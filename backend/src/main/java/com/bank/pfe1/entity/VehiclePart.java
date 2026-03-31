@@ -23,4 +23,8 @@ public class VehiclePart {
     @JoinColumn(name = "technical_check_id")
     @com.fasterxml.jackson.annotation.JsonIgnoreProperties({"hibernateLazyInitializer", "handler", "parts"})
     private TechnicalCheck technicalCheck;
+
+    @ManyToOne
+    @JoinColumn(name = "maintenance_id")
+    private Maintenance maintenance;
 }

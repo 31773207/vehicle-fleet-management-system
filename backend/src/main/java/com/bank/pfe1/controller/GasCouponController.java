@@ -1,57 +1,73 @@
 package com.bank.pfe1.controller;
 
-import com.bank.pfe1.entity.GasCoupon;
+import com.bank.pfe1.entity.*;
 import com.bank.pfe1.service.GasCouponService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/gas-coupons")
+@RequiredArgsConstructor
 public class GasCouponController {
 
-    @Autowired
-    private GasCouponService gasCouponService;
+    private final GasCouponService service;
 
     @GetMapping
-    public List<GasCoupon> getAllCoupons() {
-        return gasCouponService.getAllCoupons();
+    public List<GasCoupon> getAll() {
+        return service.getAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<GasCoupon> getCouponById(@PathVariable Long id) {
-        return ResponseEntity.ok(gasCouponService.getCouponById(id));
-    }
-
-    @GetMapping("/driver/{driverId}")
-    public List<GasCoupon> getCouponsByDriver(@PathVariable Long driverId) {
-        return gasCouponService.getCouponsByDriver(driverId);
+    public GasCoupon getById(@PathVariable Long id) {
+        return service.getById(id)
+                .orElseThrow(() -> new RuntimeException("Not found"));
     }
 
     @PostMapping
-    public ResponseEntity<GasCoupon> createCoupon(@RequestBody GasCoupon coupon) {
-        return ResponseEntity.ok(gasCouponService.createCoupon(coupon));
+    public GasCoupon create(@RequestBody GasCoupon coupon) {
+        return service.create(coupon);
     }
 
-    @PatchMapping("/{id}/assign/{driverId}")
-    public ResponseEntity<GasCoupon> assignToDriver(@PathVariable Long id, @PathVariable Long driverId) {
-        return ResponseEntity.ok(gasCouponService.assignToDriver(id, driverId));
-    }
-
-    @PatchMapping("/{id}/transfer")
-    public ResponseEntity<GasCoupon> transferCoupon(@PathVariable Long id, @RequestParam String organization) {
-        return ResponseEntity.ok(gasCouponService.transferCoupon(id, organization));
-    }
-
-    @PatchMapping("/{id}/use")
-    public ResponseEntity<GasCoupon> useCoupon(@PathVariable Long id) {
-        return ResponseEntity.ok(gasCouponService.useCoupon(id));
+    @PutMapping("/{id}")
+    public GasCoupon update(@PathVariable Long id, @RequestBody GasCoupon coupon) {
+        return service.update(id, coupon);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCoupon(@PathVariable Long id) {
-        gasCouponService.deleteCoupon(id);
-        return ResponseEntity.noContent().build();
+    public void delete(@PathVariable Long id) {
+        service.delete(id);
+    }
+
+    // ===== CUSTOM ENDPOINTS =====
+
+    @GetMapping("/driver/{driverId}")
+    public List<GasCoupon> byDriver(@PathVariable Long driverId) {
+        return service.getByDriver(driverId);
+    }
+
+    @GetMapping("/status/{status}")
+    public List<GasCoupon> byStatus(@PathVariable CouponStatus status) {
+        return service.getByStatus(status);
+    }
+
+    @GetMapping("/count/{status}")
+    public long count(@PathVariable CouponStatus status) {
+        return service.countByStatus(status);
+    }
+
+    @GetMapping("/date-range")
+    public List<GasCoupon> byDateRange(
+            @RequestParam LocalDate start,
+            @RequestParam LocalDate end) {
+        return service.getByDateRange(start, end);
+    }
+
+    @GetMapping("/number/{number}")
+    public GasCoupon byNumber(@PathVariable String number) {
+        return service.getByCouponNumber(number)
+                .orElseThrow(() -> new RuntimeException("Not found"));
     }
 }

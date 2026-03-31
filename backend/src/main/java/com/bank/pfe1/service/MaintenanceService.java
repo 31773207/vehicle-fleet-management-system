@@ -1,71 +1,75 @@
 package com.bank.pfe1.service;
 
-import com.bank.pfe1.entity.*;
-import com.bank.pfe1.repository.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.bank.pfe1.entity.Maintenance;
+import com.bank.pfe1.entity.MaintenanceStatus;
+import com.bank.pfe1.repository.MaintenanceRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class MaintenanceService {
 
-    @Autowired
-    private MaintenanceRepository maintenanceRepository;
+    private final MaintenanceRepository repository;
 
-    @Autowired
-    private VehicleRepository vehicleRepository;
+    // ===== CRUD =====
 
-    public List<Maintenance> getAllMaintenance() {
-        return maintenanceRepository.findAll();
+    public List<Maintenance> getAll() {
+        return repository.findAll();
     }
 
-    public List<Maintenance> getMaintenanceByVehicle(Long vehicleId) {
-        return maintenanceRepository.findByVehicleId(vehicleId);
+    public Optional<Maintenance> getById(Long id) {
+        return repository.findById(id);
     }
 
-    public Maintenance getMaintenanceById(Long id) {
-        return maintenanceRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Maintenance not found with id: " + id));
+    public Maintenance create(Maintenance maintenance) {
+        return repository.save(maintenance);
     }
 
-    public Maintenance createMaintenance(Maintenance maintenance) {
-        // Load full vehicle
-        Vehicle vehicle = vehicleRepository.findById(maintenance.getVehicle().getId())
-                .orElseThrow(() -> new RuntimeException("Vehicle not found"));
-        maintenance.setVehicle(vehicle);
+    public Maintenance update(Long id, Maintenance updated) {
 
-        // Set status to SCHEDULED
-        maintenance.setStatus(MaintenanceStatus.SCHEDULED);
+        Maintenance existing = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Maintenance not found"));
 
-        // Change vehicle status to IN_REVISION
-        vehicle.setStatus(VehicleStatus.IN_REVISION);
-        vehicleRepository.save(vehicle);
+        existing.setStartDate(updated.getStartDate());
+        existing.setEndDate(updated.getEndDate());
+        existing.setMaintenanceType(updated.getMaintenanceType());
+        existing.setCost(updated.getCost());
+        existing.setDescription(updated.getDescription());
+        existing.setStatus(updated.getStatus());
+        existing.setVehicle(updated.getVehicle());
+        existing.setVehicleParts(updated.getVehicleParts());
 
-        return maintenanceRepository.save(maintenance);
+        return repository.save(existing);
     }
 
-    public Maintenance completeMaintenance(Long id) {
-        Maintenance maintenance = getMaintenanceById(id);
-        maintenance.setStatus(MaintenanceStatus.COMPLETED);
-
-        // Change vehicle status back to ACTIVE
-        Vehicle vehicle = maintenance.getVehicle();
-        vehicle.setStatus(VehicleStatus.ACTIVE);
-        vehicleRepository.save(vehicle);
-
-        return maintenanceRepository.save(maintenance);
+    public void delete(Long id) {
+        repository.deleteById(id);
     }
 
-    public Maintenance updateMaintenance(Long id, Maintenance updated) {
-        Maintenance maintenance = getMaintenanceById(id);
-        maintenance.setDescription(updated.getDescription());
-        maintenance.setStartDate(updated.getStartDate());
-        maintenance.setEndDate(updated.getEndDate());
-        maintenance.setCost(updated.getCost());
-        return maintenanceRepository.save(maintenance);
+    // ===== CUSTOM METHODS =====
+
+    public List<Maintenance> getByVehicle(Long vehicleId) {
+        return repository.findByVehicleId(vehicleId);
     }
 
-    public void deleteMaintenance(Long id) {
-        maintenanceRepository.deleteById(id);
+    public List<Maintenance> getByStatus(MaintenanceStatus status) {
+        return repository.findByStatus(status);
+    }
+
+    public List<Maintenance> getByType(String type) {
+        return repository.findByMaintenanceType(type);
+    }
+
+    public List<Maintenance> getByDateRange(LocalDate start, LocalDate end) {
+        return repository.findByStartDateBetween(start, end);
+    }
+
+    public long countByStatus(MaintenanceStatus status) {
+        return repository.countByStatus(status);
     }
 }

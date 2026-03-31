@@ -1,52 +1,75 @@
 package com.bank.pfe1.controller;
 
 import com.bank.pfe1.entity.Maintenance;
+import com.bank.pfe1.entity.MaintenanceStatus;
 import com.bank.pfe1.service.MaintenanceService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/maintenance")
+@RequiredArgsConstructor
 public class MaintenanceController {
 
-    @Autowired
-    private MaintenanceService maintenanceService;
+    private final MaintenanceService service;
+
+    // ===== CRUD =====
 
     @GetMapping
-    public List<Maintenance> getAllMaintenance() {
-        return maintenanceService.getAllMaintenance();
+    public List<Maintenance> getAll() {
+        return service.getAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Maintenance> getMaintenanceById(@PathVariable Long id) {
-        return ResponseEntity.ok(maintenanceService.getMaintenanceById(id));
-    }
-
-    @GetMapping("/vehicle/{vehicleId}")
-    public List<Maintenance> getMaintenanceByVehicle(@PathVariable Long vehicleId) {
-        return maintenanceService.getMaintenanceByVehicle(vehicleId);
+    public Maintenance getById(@PathVariable Long id) {
+        return service.getById(id)
+                .orElseThrow(() -> new RuntimeException("Not found"));
     }
 
     @PostMapping
-    public ResponseEntity<Maintenance> createMaintenance(@RequestBody Maintenance maintenance) {
-        return ResponseEntity.ok(maintenanceService.createMaintenance(maintenance));
-    }
-
-    @PatchMapping("/{id}/complete")
-    public ResponseEntity<Maintenance> completeMaintenance(@PathVariable Long id) {
-        return ResponseEntity.ok(maintenanceService.completeMaintenance(id));
+    public Maintenance create(@RequestBody Maintenance maintenance) {
+        return service.create(maintenance);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Maintenance> updateMaintenance(@PathVariable Long id, @RequestBody Maintenance maintenance) {
-        return ResponseEntity.ok(maintenanceService.updateMaintenance(id, maintenance));
+    public Maintenance update(@PathVariable Long id,
+                              @RequestBody Maintenance maintenance) {
+        return service.update(id, maintenance);
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteMaintenance(@PathVariable Long id) {
-        maintenanceService.deleteMaintenance(id);
-        return ResponseEntity.noContent().build();
+    public void delete(@PathVariable Long id) {
+        service.delete(id);
+    }
+
+    // ===== CUSTOM ENDPOINTS =====
+
+    @GetMapping("/vehicle/{vehicleId}")
+    public List<Maintenance> byVehicle(@PathVariable Long vehicleId) {
+        return service.getByVehicle(vehicleId);
+    }
+
+    @GetMapping("/status/{status}")
+    public List<Maintenance> byStatus(@PathVariable MaintenanceStatus status) {
+        return service.getByStatus(status);
+    }
+
+    @GetMapping("/type/{type}")
+    public List<Maintenance> byType(@PathVariable String type) {
+        return service.getByType(type);
+    }
+
+    @GetMapping("/date-range")
+    public List<Maintenance> byDateRange(@RequestParam LocalDate start,
+                                         @RequestParam LocalDate end) {
+        return service.getByDateRange(start, end);
+    }
+
+    @GetMapping("/count/{status}")
+    public long count(@PathVariable MaintenanceStatus status) {
+        return service.countByStatus(status);
     }
 }

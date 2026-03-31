@@ -1,62 +1,76 @@
 package com.bank.pfe1.service;
 
 import com.bank.pfe1.entity.*;
-import com.bank.pfe1.repository.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.bank.pfe1.repository.GasCouponRepository;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class GasCouponService {
 
-    @Autowired
-    private GasCouponRepository gasCouponRepository;
+    private final GasCouponRepository repository;
 
-    @Autowired
-    private DriverRepository driverRepository;
-
-    public List<GasCoupon> getAllCoupons() {
-        return gasCouponRepository.findAll();
+    public List<GasCoupon> getAll() {
+        return repository.findAll();
     }
 
-    public GasCoupon getCouponById(Long id) {
-        return gasCouponRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Coupon not found with id: " + id));
+    public Optional<GasCoupon> getById(Long id) {
+        return repository.findById(id);
     }
 
-    public List<GasCoupon> getCouponsByDriver(Long driverId) {
-        return gasCouponRepository.findByDriverId(driverId);
+    public GasCoupon create(GasCoupon coupon) {
+        return repository.save(coupon);
     }
 
-    public GasCoupon createCoupon(GasCoupon coupon) {
-        coupon.setStatus(CouponStatus.AVAILABLE);
-        return gasCouponRepository.save(coupon);
+    public GasCoupon update(Long id, GasCoupon updated) {
+        GasCoupon existing = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Coupon not found"));
+
+        existing.setCouponNumber(updated.getCouponNumber());
+        existing.setFuelAmount(updated.getFuelAmount());
+        existing.setIssueDate(updated.getIssueDate());
+        existing.setStatus(updated.getStatus());
+        existing.setDriver(updated.getDriver());
+        existing.setAssignedDate(updated.getAssignedDate());
+        existing.setUsedDate(updated.getUsedDate());
+        existing.setTransferredTo(updated.getTransferredTo());
+        existing.setTransferDate(updated.getTransferDate());
+
+        return repository.save(existing);
     }
 
-    public GasCoupon assignToDriver(Long id, Long driverId) {
-        GasCoupon coupon = getCouponById(id);
-        Driver driver = driverRepository.findById(driverId)
-                .orElseThrow(() -> new RuntimeException("Driver not found"));
-        coupon.setDriver(driver);
-        coupon.setStatus(CouponStatus.ASSIGNED);
-        return gasCouponRepository.save(coupon);
+    public void delete(Long id) {
+        repository.deleteById(id);
     }
 
-    public GasCoupon transferCoupon(Long id, String organization) {
-        GasCoupon coupon = getCouponById(id);
-        coupon.setTransferredTo(organization);
-        coupon.setStatus(CouponStatus.TRANSFERRED);
-        coupon.setDriver(null);
-        return gasCouponRepository.save(coupon);
+    // ====== YOUR CUSTOM METHODS ======
+
+    public List<GasCoupon> getByDriver(Long driverId) {
+        return repository.findByDriverId(driverId);
     }
 
-    public GasCoupon useCoupon(Long id) {
-        GasCoupon coupon = getCouponById(id);
-        coupon.setStatus(CouponStatus.USED);
-        return gasCouponRepository.save(coupon);
+    public List<GasCoupon> getByStatus(CouponStatus status) {
+        return repository.findByStatus(status);
     }
 
-    public void deleteCoupon(Long id) {
-        gasCouponRepository.deleteById(id);
+    public List<GasCoupon> getByDriverAndStatus(Driver driver, CouponStatus status) {
+        return repository.findByDriverAndStatus(driver, status);
+    }
+
+    public Optional<GasCoupon> getByCouponNumber(String number) {
+        return repository.findByCouponNumber(number);
+    }
+
+    public List<GasCoupon> getByDateRange(LocalDate start, LocalDate end) {
+        return repository.findByIssueDateBetween(start, end);
+    }
+
+    public long countByStatus(CouponStatus status) {
+        return repository.countByStatus(status);
     }
 }
