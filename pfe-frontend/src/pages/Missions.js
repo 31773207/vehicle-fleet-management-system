@@ -41,18 +41,23 @@ function Missions() {
   };
 
   const fetchAvailableDrivers = async () => {
-    try {
-      const res = await axios.get(`${API}/missions/available-drivers`, { headers });
-      setAvailableDrivers(res.data);
-    } catch (err) {
-      console.error('Error fetching drivers:', err);
-    }
-  };
+  try {
+    const res = await axios.get(`${API}/employees`, { headers });
+    // Filter: employeeType = 'DRIVER' AND employeeStatus = 'AVAILABLE'
+    const availableDrivers = res.data.filter(
+      e => e.employeeType === 'DRIVER' && e.employeeStatus === 'AVAILABLE'
+    );
+    console.log('Available drivers:', availableDrivers);
+    setAvailableDrivers(availableDrivers);
+  } catch (err) {
+    console.error('Error fetching drivers:', err);
+  }
+};
 
   const fetchAvailableVehicles = async () => {
     try {
       const res = await axios.get(`${API}/vehicles`, { headers });
-      // ✅ FIX: Use 'AVAILABLE' instead of 'ACTIVE'
+      //FIX: Use 'AVAILABLE' instead of 'ACTIVE'
       setAvailableVehicles(res.data.filter(v => v.status === 'AVAILABLE'));
     } catch (err) {
       console.error('Error fetching vehicles:', err);
@@ -326,12 +331,22 @@ function Missions() {
       {showForm && (
         <div className="modal-overlay">
           <div className="modal">
-            <h3>➕ New Mission</h3>
+              <button 
+                   style={{ position: 'fixed', right: '500px', top: '65px' }}
+        className="btn-x" 
+        onClick={() => { 
+          setShowForm(false); 
+          resetForm(); 
+        }}
+      >
+        ✕
+      </button>
+            <h3>New Mission</h3>
 
             <form onSubmit={handleSubmit}>
               <div className="form-row">
                 <div className="form-group">
-                  <label>Destination *</label>
+                  <label>Destination</label>
                   <input 
                     placeholder="e.g. Oran, Algiers" 
                     value={form.destination}
@@ -340,18 +355,18 @@ function Missions() {
                   />
                 </div>
                 <div className="form-group">
-                  <label>Mission Type *</label>
+                  <label>Mission Type</label>
                   <select 
                     value={form.missionType}
                     onChange={e => setForm({...form, missionType: e.target.value})}>
-                    <option value="SHORT">🚗 SHORT (≤ 100km)</option>
-                    <option value="LONG">🚚 LONG (> 100km)</option>
+                    <option value="SHORT">SHORT (≤ 100km)</option>
+                    <option value="LONG">LONG ( > 100km)</option>
                   </select>
                 </div>
               </div>
 
               <div className="form-group">
-                <label>Purpose *</label>
+                <label>Purpose</label>
                 <textarea 
                   placeholder="Describe the mission purpose..." 
                   value={form.purpose}
@@ -363,7 +378,7 @@ function Missions() {
 
               <div className="form-row">
                 <div className="form-group">
-                  <label>Start Date *</label>
+                  <label>Start Date</label>
                   <input 
                     type="date" 
                     value={form.startDate}
@@ -372,7 +387,7 @@ function Missions() {
                   />
                 </div>
                 <div className="form-group">
-                  <label>End Date *</label>
+                  <label>End Date</label>
                   <input 
                     type="date" 
                     value={form.endDate}
@@ -383,7 +398,7 @@ function Missions() {
               </div>
 
               <div className="form-group">
-                <label>Driver (Queue Order — First = Most Available)</label>
+                <label>Driver</label>
                 <select 
                   value={form.driver.id}
                   onChange={e => setForm({...form, driver: { id: e.target.value }})} 
@@ -416,14 +431,15 @@ function Missions() {
               </div>
 
               <div className="form-buttons">
-                <button type="submit" className="btn-save">🚀 Create Mission</button>
+                <button type="submit" className="btn-Dsave">Create Mission</button>
                 <button 
                   type="button" 
-                  className="btn-cancel-form"
+                  className="btn-Dcancel"
                   onClick={() => { setShowForm(false); resetForm(); }}>
                   ❌ Cancel
                 </button>
               </div>
+              
             </form>
           </div>
         </div>
