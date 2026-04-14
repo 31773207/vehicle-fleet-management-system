@@ -246,15 +246,23 @@ font-weight: 700;
 
 .modal {
     background-color: #0d172ebd;
+  background: rgba(255, 255, 255, 0.112);
+
     padding: 30px;
-    border-radius: 12px;
+    border-radius: 16px;
     width: 550px;
     border: 1px solid #2d3548;
     max-height: 90vh;
     overflow-y: auto;
+
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  border: 3px solid #0002376e;
 }
 
-.modal h3 { color: white; margin-bottom: 20px; font-size: 18px; }
+.modal h3 { color: white; margin-bottom: 20px; font-size: 30px;
+text-align: center;
+font-weight: 600;
+ }
 
 .form-group {
     margin-bottom: 15px;
@@ -263,7 +271,8 @@ font-weight: 700;
 .form-group label {
     display: block;
     color: #aaa;
-    font-size: 12px;
+font-size: 15px;
+  font-weight: 700;    
     margin-bottom: 5px;
     text-transform: uppercase;
 }
@@ -282,13 +291,38 @@ font-weight: 700;
 }
 
 .form-group input::placeholder,
-.form-group textarea::placeholder { color: #aaa; }
+.form-group textarea::placeholder { color: #aaa;
+ }
 
+ .form-group input,
+.form-group select,
+.form-group textarea {
+    background-color: rgba(0, 174, 255, 0.053);
+
+}
+.form-group input,
+.form-group select,
+.form-group textarea,
+.form-row input,
+.form-row select,
+.form-row textarea {
+    background-color: rgba(0, 174, 255, 0.053);
+
+}
+.form-group select option,
+.form-row select option{
+  background-color: #1a1f2ed3;
+  color: white;
+  padding: 10px;
+}
 .form-row {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 15px;
 }
+
+
+
 
 .form-buttons {
     display: flex;
@@ -331,6 +365,8 @@ font-weight: 700;
 /* DRIVER QUEUE INFO */
 .queue-info {
     background-color: #2d3548;
+    background-color: #2d3548;
+
     border-radius: 8px;
     padding: 10px;
     margin-top: 5px;
