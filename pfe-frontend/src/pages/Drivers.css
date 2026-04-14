@@ -1,0 +1,996 @@
+:root {
+  --border: rgba(255, 215, 0, 0.3);
+  --text: white;
+  --text-secondary: rgba(255, 255, 255, 0.6);
+  --bg-secondary: rgba(7, 16, 28, 0.7);
+  --primary: #FFD700;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+/* CONTENT */
+.content {
+  flex: 1;
+  padding: 25px;
+  background: transparent;
+  overflow-y: auto;
+  min-height: 100vh;
+}
+
+/* HEADER */
+.content-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.content-header h2 {
+  font-size: 50px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.5);
+}
+
+.btn-add {
+  padding: 10px 22px;
+  background-color: #07101c;
+  color: white;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.btn-add:hover { 
+  background-color: #0a1a2a;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255,215,0,0.2);
+}
+
+/* FILTERS */
+.filters {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+  background: rgba(0,0,0,0.4);
+  padding: 12px 15px;
+  border-radius: 8px;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(255,215,0,0.2);
+}
+
+.filter-btn {
+  padding: 6px 16px;
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 13px;
+  background-color: transparent;
+  color: white;
+  transition: all 0.2s;
+}
+
+.filter-btn:hover {
+  border-color: #FFD700;
+  color: #FFD700;
+  transform: translateY(-1px);
+}
+
+.filter-btn.active-filter {
+  background-color: #FFD700;
+  color: #07101c;
+  border-color: #FFD700;
+  font-weight: bold;
+}
+
+.search-input {
+  padding: 7px 15px;
+  border: 1px solid rgba(255,255,255,0.3);
+  border-radius: 20px;
+  font-size: 13px;
+  color: white;
+  background-color: rgba(255,255,255,0.1);
+  width: 220px;
+  margin-left: auto;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.search-input::placeholder { 
+  color: rgba(255,255,255,0.5); 
+}
+
+.search-input:focus { 
+  border-color: #FFD700;
+  box-shadow: 0 0 5px rgba(255,215,0,0.3);
+}
+
+/* CARDS GRID */
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+/* DRIVER CARD */
+.driver-card {
+  background: rgba(0,0,0,0.4);
+    background: rgba(74, 95, 112, 0.273);
+  border-radius: 12px;
+  padding: 20px;
+  border: 1px solid rgba(255,215,0,0.25);
+    border: 3px solid rgb(0,0,0,0.4);
+
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+  transition: all 0.2s ease;
+    transform: translateY(5px);
+
+}
+
+.driver-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+  border-color: rgba(255, 217, 0, 0.77);
+        border-color: #2c8df569;
+
+
+}
+
+/* CARD TOP */
+.card-top {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 15px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid rgba(255,215,0,0.2);
+}
+
+.avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #07101c;
+  border: 2px solid #FFD700;
+    border: 3px solid rgb(0,0,0,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.driver-card:hover .avatar {
+  border-color: #2c8df569;
+  transform: scale(1.05);
+}
+
+.avatar-initials {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  font-weight: bold;
+  color: #FFD700;
+    color: #91c1f5ab;
+  background: #07101c;
+    background: #132e5157;
+  border-radius: 50%;
+}
+
+.avatar-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.driver-name {
+  color: white;
+  font-size: 30px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.badges {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.badge-id {
+  padding: 4px 12px;
+  background: rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.9);
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.badge-status {
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: bold;
+  color: white;
+}
+
+/* Status colors */
+.status-available { 
+  background-color: #28a745; 
+}
+
+.status-on-route { 
+  background-color: #dc3545; 
+}
+.status-off-duty { 
+  background-color: #6a6969; 
+}
+
+.status-on-mission-red {
+  background-color: #dc3545 !important;
+  color: white !important;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 1; }
+  50% { opacity: 0.7; }
+  100% { opacity: 1; }
+}
+
+.status-available-green {
+  background-color: #28a745 !important;
+  color: white !important;
+}
+.status-off-duty-gray {
+  background-color: #6a6969 !important;
+  color: white !important;
+}
+.status-default {
+  background-color: #6c757d !important;
+  color: white !important;
+}
+
+/* CARD INFO */
+.card-info {
+  margin-bottom: 12px;
+}
+
+.info-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(255,255,255,0.85);
+  font-size: 15px;
+  font-weight: 500;
+  margin-bottom: 8px;
+  word-break: break-word;
+  padding: 4px 0;
+}
+
+.info-row i {
+  width: 20px;
+  color: #FFD700;
+}
+
+/* Combined vehicle + assignment info */
+.vehicle-assignment-info {
+  background: rgba(7, 16, 28, 0.7);
+    background: rgba(74, 95, 112, 0.273);
+
+  border-radius: 10px;
+  padding: 12px;
+  margin: 12px 0;
+  border: 1px solid rgba(255, 215, 0, 0.2);
+    border: 1px solid rgb(0,0,0,0.4);
+  transition: all 0.3s ease;
+}
+
+.vehicle-assignment-info:hover {
+  background: rgba(7, 16, 28, 0.9);
+    background: #2c8df519;
+
+  border-color: #FFD700;
+    border-color: #2c8df569;
+  transform: translateY(-3px);
+}
+
+.vehicle-assignment-info.empty {
+  background: rgba(255, 215, 0, 0.1);
+    background: rgba(235, 37, 2, 0.085);
+
+  color: rgba(255, 255, 255, 0.6);
+  text-align: center;
+}
+.vehicle-assignment-info.empty:hover {
+    border-color: rgba(255, 38, 0, 0.407);
+  transform: translateY(-3px);
+}
+
+.vehicle-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255, 215, 0, 0.2);
+}
+
+.vehicle-icon {
+  font-size: 20px;
+}
+
+.vehicle-plate {
+  font-weight: 700;
+  color: #FFD700;
+  color: #ffffffc1;
+    background: rgba(255, 215, 0, 0.15);
+  background: #2c8df50e;
+  padding: 4px 10px;
+  border-radius: 15px;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+}
+
+.vehicle-model {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.assignment-dates {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 15px;
+}
+
+.assigned-date {
+  color: #28a745;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.removed-date {
+  color: #ff0019cd;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 15px;
+}
+
+/* CARD BUTTONS */
+.card-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.btn-edit {
+  flex: 1;
+  padding: 8px;
+  background-color: #ffc107;
+  color: #333;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: bold;
+  transition: all 0.2s;
+    transform: translateY(10px);
+
+}
+
+.btn-edit:hover { 
+  opacity: 0.85;
+  transform: translateY(1px);
+}
+
+.btn-delete {
+  flex: 1;
+  padding: 8px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: bold;
+  transition: all 0.2s;
+    transform: translateY(10px);
+
+}
+
+.btn-delete:hover { 
+  opacity: 0.85;
+  transform: translateY(1px);
+}
+
+/* MODAL - Fixed transparent version */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 6, 0.95);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(5px);
+}
+
+.modal-driver {
+  background: rgba(255, 255, 255, 0.112);
+  padding: 30px;
+  border-radius: 16px;
+  width: 580px;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  border: 3px solid #0002376e;
+}
+
+/* Modal scrollbar - Fixed */
+.modal-driver::-webkit-scrollbar {
+  width: 10px;
+}
+
+.modal-driver::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+}
+
+.modal-driver::-webkit-scrollbar-thumb {
+  background: #0002373f;
+  border-radius: 3px;
+}
+
+.modal-driver::-webkit-scrollbar-thumb:hover {
+  background: #000237b5;
+}
+
+.modal-driver h3 {
+  color: #ffffff;
+  margin-bottom: 25px;
+  font-size: 30px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid rgb(0, 75, 109);
+  text-align: center;
+font-weight: 600;
+font-style: normal;
+}
+
+/* FORM */
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.form-grid > div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-grid label {
+  font-size: 15px;
+  font-weight: 700;
+  font-style: normal;
+  color: #000237;
+  color:rgb(0, 174, 255);
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.form-grid input,
+.form-grid select,
+.form-grid textarea {
+  padding: 10px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  font-size: 14px;
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 174, 255, 0.053);
+
+  transition: all 0.2s;
+  outline: none;
+}
+
+.form-grid input:hover,
+.form-grid select:hover,
+.form-grid textarea:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 174, 255, 0.27);
+}
+
+.form-grid input:focus,
+.form-grid select:focus,
+.form-grid textarea:focus {
+  border-color: #07101c;
+  box-shadow: 0 0 0 3px rgba(0, 115, 255, 0.182);
+  background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 174, 255, 0.116);
+
+}
+
+.form-grid input::placeholder,
+.form-grid textarea::placeholder {
+  color: rgba(255, 255, 255, 0.4);
+
+
+}
+
+
+
+/* Normal options */
+.form-grid select option {
+  background-color: #1a1f2e;
+  color: white;
+  padding: 10px;
+}
+
+/* When mouse hovers over option - RED */
+.form-grid select option:hover {
+  background-color: #dc3545 !important;
+  color: white !important;
+}
+
+
+
+.form-buttons {
+  grid-column: span 2;
+  display: flex;
+  gap: 12px;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.btn-Dsave {
+  flex: 1;
+  padding: 12px;
+  background-color: #28a745;
+  color: white;
+  border: 1px solid #28a745;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.btn-Dsave:hover {
+  background-color: #21883721;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.2);
+}
+
+.btn-Dcancel {
+  flex: 1;
+  padding: 12px;
+  background-color: transparent;
+  color: #dc3545;
+  border: 1px solid #dc3545;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.btn-Dcancel:hover {
+  background-color: rgba(220, 53, 70, 0.429);
+  transform: translateY(-2px);
+}
+
+/* CONTENT BODY */
+.content-body {
+  animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Section Titles */
+.section-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 30px 0 20px 0;
+  padding-bottom: 10px;
+  border-bottom: 2px solid rgba(255, 215, 0, 0.3);
+      border-bottom: 2px solid #2c8df569;
+
+}
+
+.section-title h3 {
+  font-size: 40px;
+  font-weight: 600;
+  color: white;
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+}
+
+.section-count {
+  background: #2c8df569;
+  color: #ffffffd1;
+  padding: 5px 15px;
+  border-radius: 20px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+/* Remove old type badges */
+.badge-type {
+  display: none;
+}
+
+/* Empty state */
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 16px;
+  margin-top: 20px;
+}
+
+.empty-state p {
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 16px;
+}
+
+/* Queue info */
+.queue-info {
+  font-size: 11px;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 5px;
+  padding: 5px 10px;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 6px;
+}
+
+.queue-info span {
+  color: #FFD700;
+  font-weight: bold;
+}
+
+/* Timestamp styles */
+.timestamp {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.4);
+  margin-top: 4px;
+}
+
+/* Driver ID small text */
+.driver-id {
+  font-size: 10px;
+  color: rgba(255, 255, 255, 0.4);
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .search-input {
+    margin-left: 0;
+    width: 100%;
+  }
+  
+  .modal {
+    width: 90%;
+    margin: 20px;
+    padding: 20px;
+  }
+  
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .form-buttons {
+    grid-column: span 1;
+  }
+  
+  .content-header {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+  
+  .section-title h3 {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+  .driver-card {
+    padding: 15px;
+  }
+  
+  .avatar {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .avatar-initials {
+    font-size: 24px;
+  }
+  
+  .driver-name {
+    font-size: 16px;
+  }
+  
+  .badge-id, .badge-status {
+    font-size: 9px;
+    padding: 3px 8px;
+  }
+  
+  .info-row {
+    font-size: 11px;
+  }
+  
+  .vehicle-plate {
+    font-size: 11px;
+  }
+  
+  .vehicle-model {
+    font-size: 10px;
+  }
+}
+
+.btn-assign {
+  flex: 1;
+  padding: 12px;
+  background-color: #28a745;
+  color: white;
+  border: 1px solid #28a745;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.btn-assign:hover {
+  background-color: #21883721;
+  transform: translateY(-10px);
+  box-shadow: 0 4px 12px rgba(255, 215, 0, 0.2);
+}
+
+.btn-remove {
+  flex: 1;
+  padding: 12px;
+  background-color: transparent;
+  color: #dc3545;
+  border: 1px solid #dc3545;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.btn-remove:hover {
+  background-color: rgba(220, 53, 70, 0.429);
+  transform: translateY(-10px);
+}
+.btn-cancel {
+  flex: 1;
+  padding: 12px;
+  background-color: transparent;
+  color: #dcbb35;
+  border: 1px solid #dcbb35;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.btn-cancel:hover {
+  background-color: #dcbb3562;
+  transform: translateY(-10px);
+}
+
+/* ASSIGN MODAL STYLES */
+.modal-assign {
+  background: rgba(255, 255, 255, 0.112);
+  padding: 30px;
+  border-radius: 16px;
+  width: 580px;
+  max-height: 85vh;
+  overflow-y: auto;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+  border: 3px solid #0002376e;
+}
+.modal-assign h3 {
+  color: #ffffff;
+  margin-bottom: 25px;
+  font-size: 30px;
+  padding-bottom: 15px;
+  border-bottom: 2px solid rgb(0, 75, 109);
+  text-align: center;
+font-weight: 600;
+font-style: normal;
+}
+.modal-assign-header {
+   border:1px solid #3d5166;
+   border-radius: 10px;
+    padding: 18px;
+    margin-bottom: 20px; 
+}
+/* Date row - Start Date and End Date side by side */
+.date-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.date-row > div {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.date-row label {
+  font-size: 18px;
+  font-weight: 600;
+  font-style: arial;
+  color: #00aeff;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 5px;
+}
+
+.date-row input {
+  padding: 10px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  font-size: 14px;
+  color: white;
+  background-color: rgba(0, 174, 255, 0.053);
+  transition: all 0.2s;
+  outline: none;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.date-row input:hover {
+  background-color: rgba(0, 174, 255, 0.27);
+}
+
+.date-row input:focus {
+  border-color: #6aaaff;
+  box-shadow: 0 0 0 3px rgba(0, 115, 255, 0.182);
+  background-color: rgb(111, 209, 255);
+}/* Select Vehicle dropdown */
+.form-assign .select {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.form-assign .select label {
+  font-size: 15px;
+  font-weight: 600;
+  color: #ffffff;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  margin-bottom: 8px;
+  display: block;
+}
+
+.form-assign .select select {
+  width: 100%;
+  padding: 10px 14px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  font-size: 14px;
+  color: white;
+  background-color: rgba(0, 174, 255, 0.053);
+
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.form-assign .select select:hover {
+  background-color: rgba(0, 174, 255, 0.27);
+}
+
+.form-assign .select select:focus {
+  border-color: #00aeff;
+  box-shadow: 0 0 0 3px rgba(0, 174, 255, 0.182);
+  background-color: rgba(0, 174, 255, 0.3);
+}
+
+/* Dropdown arrow */
+.form-assign .select select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%2300aeff' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+}
+
+/* Options styling */
+.form-assign .select select option {
+  background-color: rgba(0, 59, 87, 0.773);
+  color: white;
+  padding: 12px;
+}
+
+.form-assign .select select option:hover {
+  background-color: #dc3545 !important;
+  color: white !important;
+}
+
+
+
+/*button x*/
+
+/* Modal close button (X) - RIGHT side */
+/* Make sure parent has position relative */
+.modal-assign {
+  position: relative;
+}
+
+/* X button - RIGHT side */
+.btn-x {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  color: #dc3545;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  padding: 5px 10px;
+  border-radius: 50%;
+  z-index: 10;
+}
+
+.btn-x:hover {
+  background-color: rgba(220, 53, 69, 0.1);
+  transform: scale(1.1);
+}
+

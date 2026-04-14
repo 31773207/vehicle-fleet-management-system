@@ -1,0 +1,341 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+.page-container { font-family: Arial, sans-serif; background-color: #1a1f2e; min-height: 100vh; }
+
+.content { flex: 1; padding: 30px; background-color: #1a1f2e; overflow-y: auto; }
+
+.content-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+.content-header h2 { 
+    font-size: 45px;
+  font-weight: bold;
+  color: white;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.5);
+   
+ }
+
+.btn-add {
+    padding: 10px 20px;
+    background-color: #001345;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.btn-add:hover { background-color: #07101c; }
+
+/* FILTERS */
+.filters {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 13px;
+    background-color: #2d3548;
+    color: #aaa;
+}
+
+.filter-btn.active-filter {
+    background-color: #001345;
+    color: white;
+}
+
+.search-input {
+    padding: 8px 15px;
+    border: 1px solid #2d3548;
+    border-radius: 20px;
+    background-color: #2d3548;
+    color: white;
+    font-size: 14px;
+    width: 220px;
+    margin-left: auto;
+}
+
+.search-input::placeholder { color: #aaa; }
+
+/* TABLE */
+.table-wrapper {
+  background: rgba(0, 0, 0, 0.4);
+  background: rgba(74, 95, 112, 0.273);
+
+  border-radius: 12px;
+  overflow-x: auto;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 215, 0, 0.25);
+  border: 2px solid rgb(0,0,0,0.4);
+
+  box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+}
+
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 1000px;
+}
+
+.data-table thead tr {
+  background: rgba(7, 16, 28, 0.8);
+  border-bottom: 2px solid #ffd9005c;
+
+}
+
+.data-table th {
+  padding: 14px 16px;
+  text-align: left;
+  color: #ffd9009f;
+    color: #62aeff;
+  font-size: 15px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+}
+
+.data-table th,
+.data-table td {
+  border: none;
+}
+
+.data-table tbody tr {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  transition: background-color 0.2s;
+}
+
+.data-table tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.data-table td {
+  padding: 15px 16px;
+  color: white;
+  font-size: 15px;
+  vertical-align: top;
+}
+
+/* Mission ID styling */
+.mission-id {
+  font-weight: bold;
+  color: #ffd9009f;
+    color: #62aeff;
+font-weight: 700;
+  font-size: 18px;
+}
+
+.mission-timestamp {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.5);
+  margin-top: 4px;
+}
+
+/* Driver ID text */
+.driver-id-text {
+  font-size: 15px;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* BADGES */
+.mission-badge {
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: bold;
+  display: inline-block;
+}
+
+.badge-planned {
+    font-size: 16px;
+  color: #856404;
+}
+
+.badge-progress {
+    font-size: 16px;
+  color: #004085;
+}
+
+.badge-completed {
+  color: #00ad28;
+      font-size: 16px;
+
+}
+
+.badge-cancelled {
+    font-size: 16px;
+  color: #721c24;
+}
+
+.badge-short {
+  color: #8051d6;
+    font-size: 16px;
+
+}
+
+.badge-long {
+    font-size: 16px;
+  color: #c0390b;
+}
+
+/* ACTION BUTTONS */
+.action-buttons {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.action-btn {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 11px;
+  font-weight: 600;
+  transition: all 0.2s;
+}
+
+.action-btn:hover {
+  transform: translateY(-1px);
+  opacity: 0.85;
+}
+
+.start-btn {
+  background-color: #17a2b8;
+  color: white;
+}
+
+.complete-btn {
+  background-color: #28a745;
+  color: white;
+}
+
+.cancel-btn {
+  background-color: #dc3545;
+  color: white;
+}
+
+.delete-btn {
+  background-color: #6c757d;
+  color: white;
+}
+
+/* MODAL */
+.modal-overlay {
+    position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background-color: rgba(0,0,0,0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  backdrop-filter: blur(3px);
+}
+
+.modal {
+    background-color: #0d172ebd;
+    padding: 30px;
+    border-radius: 12px;
+    width: 550px;
+    border: 1px solid #2d3548;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.modal h3 { color: white; margin-bottom: 20px; font-size: 18px; }
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.form-group label {
+    display: block;
+    color: #aaa;
+    font-size: 12px;
+    margin-bottom: 5px;
+    text-transform: uppercase;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    background-color: #2d3548;
+    border: 1px solid #3d5166;
+    border-radius: 6px;
+    color: white;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.form-group input::placeholder,
+.form-group textarea::placeholder { color: #aaa; }
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.form-buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btn-save {
+    flex: 1;
+    padding: 12px;
+    background-color: #34a853;
+    color: white;
+      border: 1px solid #34a853;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+}
+.btn-save:hover {
+  background-color: #2d9c4943;
+  transform: translateY(-2px);
+}
+.btn-cancel-form  {
+  flex: 1;
+  padding: 12px;
+  background-color: #dc3545;
+  color: white;
+  border: 1px solid #dc3545;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 14px;
+  transition: all 0.3s ease;
+}
+
+.btn-cancel-form:hover {
+  background-color: #c8233352;
+  transform: translateY(-2px);
+}
+/* DRIVER QUEUE INFO */
+.queue-info {
+    background-color: #2d3548;
+    border-radius: 8px;
+    padding: 10px;
+    margin-top: 5px;
+    font-size: 12px;
+    color: #aaa;
+}
+
+.queue-info span { color: #1a73e8; font-weight: bold; }
