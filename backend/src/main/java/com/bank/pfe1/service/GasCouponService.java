@@ -1,6 +1,7 @@
 package com.bank.pfe1.service;
 
 import com.bank.pfe1.entity.*;
+import com.bank.pfe1.repository.DriverRepository;
 import com.bank.pfe1.repository.GasCouponRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ import java.util.Optional;
 public class GasCouponService {
 
     private final GasCouponRepository repository;
+    private final DriverRepository driverRepository;
 
     public List<GasCoupon> getAll() {
         return repository.findAll();
@@ -24,6 +26,8 @@ public class GasCouponService {
     }
 
     public GasCoupon create(GasCoupon coupon) {
+        coupon.setStatus(CouponStatus.AVAILABLE);
+        coupon.setIssueDate(LocalDate.now());
         return repository.save(coupon);
     }
 
@@ -48,7 +52,53 @@ public class GasCouponService {
         repository.deleteById(id);
     }
 
-    // ====== YOUR CUSTOM METHODS ======
+    
+    public GasCoupon assignToDriver(Long couponId, Long driverId) {
+        GasCoupon coupon = repository.findById(couponId)
+                .orElseThrow(() -> new RuntimeException("Coupon not found"));
+
+        if (coupon.getStatus() != CouponStatus.AVAILABLE) {
+            throw new RuntimeException("Coupon is not available for assignment. Current status: " + coupon.getStatus());
+        }
+
+        Driver driver = driverRepository.findById(driverId)
+                .orElseThrow(() -> new RuntimeException("Driver not found"));
+
+        coupon.setDriver(driver);
+        coupon.setStatus(CouponStatus.ASSIGNED);
+        coupon.setAssignedDate(LocalDate.now());
+        return repository.save(coupon);
+    }
+
+    
+    public GasCoupon transfer(Long couponId, String transferredTo) {
+        GasCoupon coupon = repository.findById(couponId)
+                .orElseThrow(() -> new RuntimeException("Coupon not found"));
+
+        if (coupon.getStatus() == CouponStatus.USED) {
+            throw new RuntimeException("Cannot transfer a used coupon.");
+        }
+
+        coupon.setTransferredTo(transferredTo);
+        coupon.setTransferDate(LocalDate.now());
+        coupon.setStatus(CouponStatus.TRANSFERRED);
+        coupon.setDriver(null);
+        return repository.save(coupon);
+    }
+
+    
+    public GasCoupon markAsUsed(Long couponId) {
+        GasCoupon coupon = repository.findById(couponId)
+                .orElseThrow(() -> new RuntimeException("Coupon not found"));
+
+        if (coupon.getStatus() != CouponStatus.ASSIGNED) {
+            throw new RuntimeException("Only ASSIGNED coupons can be marked as used.");
+        }
+
+        coupon.setStatus(CouponStatus.USED);
+        coupon.setUsedDate(LocalDate.now());
+        return repository.save(coupon);
+    }
 
     public List<GasCoupon> getByDriver(Long driverId) {
         return repository.findByDriverId(driverId);

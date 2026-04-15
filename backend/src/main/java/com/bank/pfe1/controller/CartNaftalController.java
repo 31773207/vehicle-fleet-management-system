@@ -29,9 +29,19 @@ public class CartNaftalController {
         return ResponseEntity.ok(cartNaftalService.createCart(cart));
     }
 
-    @PatchMapping("/{cartId}/assign/{driverId}")
-    public ResponseEntity<CartNaftal> assignToDriver(@PathVariable Long cartId, @PathVariable Long driverId) {
+    @PatchMapping("/{cartId}/assign/driver/{driverId}")
+    public ResponseEntity<CartNaftal> assignToDriver(
+            @PathVariable Long cartId,
+            @PathVariable Long driverId) {
         return ResponseEntity.ok(cartNaftalService.assignToDriver(cartId, driverId));
+    }
+
+    
+    @PatchMapping("/{cartId}/assign/vehicle/{vehicleId}")
+    public ResponseEntity<CartNaftal> assignToVehicle(
+            @PathVariable Long cartId,
+            @PathVariable Long vehicleId) {
+        return ResponseEntity.ok(cartNaftalService.assignToVehicle(cartId, vehicleId));
     }
 
     @PatchMapping("/{id}/toggle")

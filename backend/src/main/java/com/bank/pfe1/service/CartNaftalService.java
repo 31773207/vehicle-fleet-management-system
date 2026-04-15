@@ -15,6 +15,9 @@ public class CartNaftalService {
     @Autowired
     private DriverRepository driverRepository;
 
+    @Autowired
+    private VehicleRepository vehicleRepository; 
+
     public List<CartNaftal> getAllCarts() {
         return cartNaftalRepository.findAll();
     }
@@ -25,10 +28,15 @@ public class CartNaftalService {
     }
 
     public CartNaftal createCart(CartNaftal cart) {
-        if (cart.getDriver() != null) {
+        if (cart.getDriver() != null && cart.getDriver().getId() != null) {
             Driver driver = driverRepository.findById(cart.getDriver().getId())
                     .orElseThrow(() -> new RuntimeException("Driver not found"));
             cart.setDriver(driver);
+        }
+        if (cart.getVehicle() != null && cart.getVehicle().getId() != null) { 
+            Vehicle vehicle = vehicleRepository.findById(cart.getVehicle().getId())
+                    .orElseThrow(() -> new RuntimeException("Vehicle not found"));
+            cart.setVehicle(vehicle);
         }
         cart.setActive(true);
         return cartNaftalRepository.save(cart);
@@ -39,6 +47,17 @@ public class CartNaftalService {
         Driver driver = driverRepository.findById(driverId)
                 .orElseThrow(() -> new RuntimeException("Driver not found"));
         cart.setDriver(driver);
+        cart.setVehicle(null); 
+        return cartNaftalRepository.save(cart);
+    }
+
+    // ✅ ADDED - assign card to a vehicle
+    public CartNaftal assignToVehicle(Long cartId, Long vehicleId) {
+        CartNaftal cart = getCartById(cartId);
+        Vehicle vehicle = vehicleRepository.findById(vehicleId)
+                .orElseThrow(() -> new RuntimeException("Vehicle not found"));
+        cart.setVehicle(vehicle);
+        cart.setDriver(null); 
         return cartNaftalRepository.save(cart);
     }
 

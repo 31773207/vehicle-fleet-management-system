@@ -44,4 +44,16 @@ public class TechnicalCheckController {
         technicalCheckService.deleteCheck(id);
         return ResponseEntity.noContent().build();
     }
+
+    
+    @GetMapping("/expiring-soon")
+    public ResponseEntity<List<TechnicalCheck>> getExpiringSoon() {
+        return ResponseEntity.ok(technicalCheckService.getExpiringSoon());
+    }
+
+    
+    @GetMapping("/expired")
+    public ResponseEntity<List<TechnicalCheck>> getExpired() {
+        return ResponseEntity.ok(technicalCheckService.getExpired());
+    }
 }

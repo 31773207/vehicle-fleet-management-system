@@ -27,6 +27,8 @@ public class Vehicle {
     private Double kilometrage;
     private String fuelType;
 
+    private Double price; 
+
     @Enumerated(EnumType.STRING)
     @Builder.Default
     private VehicleStatus status = VehicleStatus.AVAILABLE;

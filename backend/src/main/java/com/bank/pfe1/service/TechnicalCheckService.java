@@ -3,7 +3,9 @@ package com.bank.pfe1.service;
 import com.bank.pfe1.entity.*;
 import com.bank.pfe1.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -48,5 +50,31 @@ public class TechnicalCheckService {
 
     public void deleteCheck(Long id) {
         technicalCheckRepository.deleteById(id);
+    }
+
+
+    public List<TechnicalCheck> getExpiringSoon() {
+        LocalDate today = LocalDate.now();
+        LocalDate in15Days = today.plusDays(15);
+        return technicalCheckRepository.findByExpiryDateBetween(today, in15Days);
+    }
+
+    
+    public List<TechnicalCheck> getExpired() {
+        return technicalCheckRepository.findByExpiryDateBefore(LocalDate.now());
+    }
+
+
+    @Scheduled(cron = "0 0 0 * * *")
+    public void autoUpdateExpiredStatuses() {
+        List<TechnicalCheck> expired = technicalCheckRepository
+                .findByExpiryDateBefore(LocalDate.now());
+
+        for (TechnicalCheck check : expired) {
+            if (check.getStatus() != TechnicalCheckStatus.EXPIRED) {
+                check.setStatus(TechnicalCheckStatus.EXPIRED);
+                technicalCheckRepository.save(check);
+            }
+        }
     }
 }

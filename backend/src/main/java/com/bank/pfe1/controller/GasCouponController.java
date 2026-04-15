@@ -3,6 +3,7 @@ package com.bank.pfe1.controller;
 import com.bank.pfe1.entity.*;
 import com.bank.pfe1.service.GasCouponService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
@@ -41,7 +42,29 @@ public class GasCouponController {
         service.delete(id);
     }
 
-    // ===== CUSTOM ENDPOINTS =====
+    
+    @PatchMapping("/{couponId}/assign/{driverId}")
+    public ResponseEntity<GasCoupon> assignToDriver(
+            @PathVariable Long couponId,
+            @PathVariable Long driverId) {
+        return ResponseEntity.ok(service.assignToDriver(couponId, driverId));
+    }
+
+    
+    @PatchMapping("/{couponId}/transfer")
+    public ResponseEntity<GasCoupon> transfer(
+            @PathVariable Long couponId,
+            @RequestParam String transferredTo) {
+        return ResponseEntity.ok(service.transfer(couponId, transferredTo));
+    }
+
+
+    @PatchMapping("/{couponId}/use")
+    public ResponseEntity<GasCoupon> markAsUsed(@PathVariable Long couponId) {
+        return ResponseEntity.ok(service.markAsUsed(couponId));
+    }
+
+   
 
     @GetMapping("/driver/{driverId}")
     public List<GasCoupon> byDriver(@PathVariable Long driverId) {
